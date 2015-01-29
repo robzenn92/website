@@ -1,0 +1,46 @@
+.community-nav {
+  font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.42857143;
+  background: #00A818;
+}
+
+.community-nav.school {
+  background: #FF7F00;
+}
+
+.community-nav nav {
+  width: 1170px;
+  margin: 0 auto;
+}
+
+.community-nav a {
+  color: #fff;
+  font-weight: normal;
+  display: inline-block;
+  /*margin: 0 30px 0 0;*/
+  padding: 15px 15px;
+}
+
+.community-nav a.active, .community-nav a:hover {
+  background: #fff;
+  color: #00A818;
+}
+
+@media (min-width: 768px) {
+  .community-nav nav {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .community-nav nav {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .community-nav nav {
+    width: 1170px;
+  }
+}
