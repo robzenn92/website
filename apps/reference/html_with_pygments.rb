@@ -11,7 +11,8 @@ module Reference
 
     def block_code(code, language)
       html = Pygments.highlight(code, lexer: language)
-      html.gsub(/<div class="highlight">/, %Q{<div class="highlight #{language}">})
+      classes = language == 'gherkin' ? language : "toggle #{language}"
+      html.gsub(/<div class="highlight">/, %Q{<div class="highlight #{classes}">})
     end
 
     def postprocess(doc)
@@ -19,7 +20,7 @@ module Reference
       lines = doc.split("\n")
       header_prefix = %Q{\n<div class="topic">\n  <div class="topic-section">\n    <div class="topic-description">\n}
       lines.each do |line|
-        if line =~ /^<div class="highlight (ruby|java|javascript)">/ && wrap_code
+        if line =~ /^<div class="highlight toggle \w+">/ && wrap_code
           line.prepend(%Q{\n  </div>\n  <div class="topic-example">\n})
           wrap_code = false
         end

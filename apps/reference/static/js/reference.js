@@ -2,17 +2,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   function showLanguage(language) {
     // Hide all languages
-    var codes = Dom.find('div.highlight')
-    for(var i = 0; i < codes.length; i++) {
-      var code = codes.item(i);
-      if(!Dom.hasClass(code, 'gherkin')) {
-        Dom.addClass(code, 'hidden');
-      }
-    }
+    Dom.addClass(Dom.find('div.toggle'), 'hidden');
 
-    // Show the one we want
-    codes = Dom.find('div.highlight.' + language);
-    Dom.removeClass(codes, 'hidden');
+    // Show the language we want
+    Dom.removeClass(Dom.find('div.toggle.' + language), 'hidden');
   }
 
   showLanguage('ruby');
