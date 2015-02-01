@@ -4,6 +4,8 @@ html
     link rel="stylesheet" href="/style/pygments.css"
     link rel="stylesheet" href="/style/reference.css"
     link rel="stylesheet" href="/style/reference-style.css"
+    script src="/js/dom.min.js"
+    script src="/js/reference.js"
 
   body.reference
     div#toc
@@ -11,7 +13,7 @@ html
       div#topics
         div.border
         div#language.stick
-          a.language> href="#" Ruby
-          a.language> href="#" Java
-          a.language> href="#" JavaScript
+          a.language> href="#" data-language="ruby" Ruby
+          a.language> href="#" data-language="java" Java
+          a.language> href="#" data-language="javascript" JavaScript
         == yield

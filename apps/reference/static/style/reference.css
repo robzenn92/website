@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 .reference div#toc {
     border-right: 1px solid #dadfe5;
     bottom: 0;
