@@ -14,6 +14,7 @@ gem 'slim'
 gem 'tilt', git: 'https://github.com/rtomayko/tilt.git'
 gem 'redcarpet'
 gem 'pygments.rb'
+gem 'nokogiri'
 
 group :test do
   gem 'rspec'

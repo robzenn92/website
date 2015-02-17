@@ -1,4 +1,4 @@
-require_relative 'html_with_pygments'
+require_relative 'generator'
 
 Slim::Engine.set_options pretty: true
 
@@ -9,10 +9,10 @@ module Reference
     set :views,         Proc.new { File.join(root, 'views') }
 
     set :markdown, {
-      renderer:           HTMLwithPygments,
+      renderer:           Generator,
       fenced_code_blocks: true,
       layout_engine:      :slim,
-      layout:             :reference_layout
+      layout:             :layout
     }
 
     # Automatically set up routes for all views

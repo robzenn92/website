@@ -24,7 +24,8 @@ module Reference
           line.prepend(%Q{\n  </div>\n  <div class="topic-example">\n})
           wrap_code = false
         end
-        if line =~ /^<h[1-4]/
+        if line =~ /^<h[1-4] id="\w+">([^<]+)<\/h[1-4]*>/
+          puts line
           line.prepend(header_prefix)
           header_prefix = %Q{\n    </div>\n  </div>\n</div>\n<div class="topic">\n  <div class="topic-section">\n    <div class="topic-description">\n}
           wrap_code = true

@@ -59,3 +59,9 @@ def foo
   puts "Third"
 end
 ```
+
+# New toplevel header
+
+## New one below
+
+### Even lower
