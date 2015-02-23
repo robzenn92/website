@@ -20,8 +20,8 @@ describe "integration testing" do
   ].each do |path|
     it "returns #{path} with a non-failure code" do
       get path
-      puts last_response
       expect(last_response).to be_ok
+      expect(last_response.headers['Content-Length'].to_i).to be > 0
     end
   end
 
