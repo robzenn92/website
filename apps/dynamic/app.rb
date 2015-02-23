@@ -5,6 +5,7 @@ require 'liquid'
 require 'tilt'
 require 'sinatra/base'
 require 'sinatra/assetpack'
+require 'less'
 
 Slim::Engine.set_options(pretty: ENV['RACK_ENV'] != 'production')
 
@@ -17,7 +18,10 @@ module Dynamic
 
     register Sinatra::AssetPack
     assets {
-      serve '/css', from: 'assets/css'
+      css_dir = 'assets/css'
+      serve '/css', from: css_dir
+      Less.paths << File.join(App.root, css_dir)
+
       css :style, '/css/stylex.css', [
                                      '/css/style.less'
                                     ]
