@@ -22,7 +22,7 @@ module Dynamic
       serve '/css', from: css_dir
       Less.paths << File.join(App.root, css_dir)
 
-      css :style, '/css/stylex.css', [
+      css :main, '/css/style.css', [
                                      '/css/main.css'
                                     ]
       css_compression :simple

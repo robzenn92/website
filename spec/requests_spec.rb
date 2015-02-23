@@ -16,7 +16,7 @@ describe "integration testing" do
     "/school",
     "/blog",
     "/reference",
-    "/css/stylex.css"
+    "/css/style.css"
   ].each do |path|
     it "returns #{path} with a non-failure code" do
       get path
