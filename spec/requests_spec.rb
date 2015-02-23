@@ -33,6 +33,13 @@ describe "integration testing" do
     end
   end
 
+  describe "blog" do
+    it "renders blog pages just like any other page" do
+      get '/blog/2015/01/31/cucumber-ruby-rc-3-released-tmp'
+      expect(last_response).to be_ok
+    end
+  end
+
   describe "rss feed" do
     it "exists" do
       get "/feed.xml"
