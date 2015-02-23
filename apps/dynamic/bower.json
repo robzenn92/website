@@ -1,0 +1,13 @@
+{
+  "name": "cucumber.pro",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.2",
+    "jquery": "2.1.3"
+  }
+}

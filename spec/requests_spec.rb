@@ -15,10 +15,12 @@ describe "integration testing" do
     "/training",
     "/school",
     "/blog",
-    "/reference"
+    "/reference",
+    "/css/stylex.css"
   ].each do |path|
     it "returns #{path} with a non-failure code" do
       get path
+      puts last_response
       expect(last_response).to be_ok
     end
   end
