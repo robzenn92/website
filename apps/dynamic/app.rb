@@ -23,7 +23,7 @@ module Dynamic
       Less.paths << File.join(App.root, css_dir)
 
       css :style, '/css/stylex.css', [
-                                     '/css/style.less'
+                                     '/css/main.css'
                                     ]
       css_compression :simple
     }

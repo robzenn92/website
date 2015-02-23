@@ -45,20 +45,47 @@
     font-size: 30px;
   }
 
+  .language-logo(@image) {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    width: 32px;
+    height: 32px;
+    margin: 0 5px;
+    background-size: 32px auto;
+    background-repeat: no-repeat;
+    background-image: url(@image);
+  }
+
+  &.buy-action {
+    .ruby {
+      &:before {
+        .language-logo("/images/online-training/ruby.png");
+      }
+    }
+
+    .java {
+      &:before {
+        .language-logo("/images/online-training/java.png");
+        width: 48px;
+        height: 90px;
+        background-size: 48px auto;
+        margin: 8px auto -12px auto;
+      }
+    }
+
+    .javascript {
+      &:before {
+        .language-logo("/images/online-training/javascript.png");
+      }
+    }
+  }
+
+  ///// REMOVE:
+
   h2 {
     span { display: none; }
     margin: 0;
-
-    .language-logo(@image) {
-      display: inline-block;
-      content: " ";
-      width: 32px;
-      height: 32px;
-      margin: 0;
-      background-size: 32px auto;
-      background-repeat: no-repeat;
-      background-image: url(@image);
-    }
 
     &.ruby {
       &:before {
@@ -82,6 +109,8 @@
       }
     }
   }
+
+  // /REMOVE
 
   .btn {
     font-size: 30px;
@@ -109,15 +138,6 @@
 
 .price-table .info {
   font-weight: 700;
-}
-
-.price-table .btn,
-.price-table .button {
-  display: block;
-  margin: 0 auto;
-  padding: 12px 0;
-  text-align: center;
-  width: 70%;
 }
 
 .price-table li:last-child {
