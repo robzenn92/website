@@ -68,6 +68,12 @@ module Dynamic
       locals['template_path'] = template_path
       layout = locals['layout'] || 'layout'
 
+      template_proc = Proc.new do |template|
+        content_after_yaml_header(file)
+      end
+
+      renderer = constantize(locals['renderer']) if locals['renderer']
+
       get path_for(template, locals) do
         timestamps = (TIMESTAMPED_FILES + [file]).map {|f| File.mtime(f)}
         last_modified timestamps.max
@@ -82,10 +88,10 @@ module Dynamic
         }
         if engine == :markdown
           # This causes a warning in Slim, but I can't see a way around it
-          options[:renderer] = constantize(locals['renderer']) if locals['renderer']
+          options[:renderer] = renderer
           options[:fenced_code_blocks] = true
         end
-        self.send(engine, template_proc(file), options, locals)
+        self.send(engine, template_proc, options, locals)
       end
     end
 
@@ -101,28 +107,6 @@ module Dynamic
       def edit_url(template_path)
         "#{CONFIG['site']['edit_url']}/#{template_path}"
       end
-    end
-
-    private
-
-
-    # Lifted from Jekyll::Document
-    YAML_FRONT_MATTER_REGEXP = /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
-
-    def template_proc(file)
-      Proc.new do |template|
-        content = File.read(file)
-        # $' is what follows the match - AKA $POSTMATCH
-        content =~ YAML_FRONT_MATTER_REGEXP ? $' : content
-      end
-    end
-
-    def constantize(class_name)
-      unless /\A(?:::)?([A-Z]\w*(?:::[A-Z]\w*)*)\z/ =~ class_name
-        raise NameError, "#{class_name.inspect} is not a valid constant name!"
-      end
-
-      Object.module_eval("::#{$1}", __FILE__, __LINE__)
     end
   end
 end

@@ -12,6 +12,15 @@ module Dynamic
       !!(File.open(file, 'rb') { |f| f.read(5) } =~ /\A---\r?\n/)
     end
 
+    # Lifted from Jekyll::Document
+    YAML_FRONT_MATTER_REGEXP = /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+
+    def content_after_yaml_header(file)
+      content = File.read(file)
+      # $' is what follows the match - AKA $POSTMATCH
+      content =~ YAML_FRONT_MATTER_REGEXP ? $' : content
+    end
+
     # Lifted from
     # http://gemjack.com/gems/tartan-0.1.1/classes/Hash.html
     #
@@ -31,5 +40,12 @@ module Dynamic
       target
     end
 
+    def constantize(class_name)
+      unless /\A(?:::)?([A-Z]\w*(?:::[A-Z]\w*)*)\z/ =~ class_name
+        raise NameError, "#{class_name.inspect} is not a valid constant name!"
+      end
+
+      Object.module_eval("::#{$1}", __FILE__, __LINE__)
+    end
   end
 end
