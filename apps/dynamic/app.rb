@@ -22,9 +22,12 @@ module Dynamic
       serve '/css', from: css_dir
       Less.paths << File.join(App.root, css_dir)
 
-      css :style, '/css/stylex.css', [
-                                     '/css/main.css'
-                                    ]
+      serve '/bower_components', from: 'bower_components'
+
+      css :main, '/css/style.css', [
+        '/css/main.css',
+        '/bower_components/slick-carousel/slick/slick.css'
+      ]
       css_compression :simple
     }
 
