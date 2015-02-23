@@ -4,6 +4,7 @@ require 'redcarpet'
 require 'liquid'
 require 'tilt'
 require 'sinatra/base'
+require 'sinatra/assetpack'
 
 Slim::Engine.set_options(pretty: ENV['RACK_ENV'] != 'production')
 
@@ -11,16 +12,23 @@ Slim::Engine.set_options(pretty: ENV['RACK_ENV'] != 'production')
 # Support several template engines: Markdown, Slim and HTML with Liquid
 module Dynamic
   class App < Sinatra::Application
-    set :root,          File.dirname(__FILE__)
-    set :public_folder, Proc.new { File.join(root, 'static') }
-    set :views,         Proc.new { File.join(root, 'views') }
+    set :root,  File.dirname(__FILE__)
+    set :views, Proc.new { File.join(root, 'views') }
+
+    register Sinatra::AssetPack
+    assets {
+      serve '/css', from: 'assets/css'
+      css :style, '/css/stylex.css', [
+                                     '/css/style.less'
+                                    ]
+      css_compression :simple
+    }
 
     engines = {
       '.md'     => :markdown,
       '.slim'   => :slim,
       '.html'   => :liquid
     }
-
     TIMESTAMPED_FILES = Dir["#{views}/_includes/*"] + [__FILE__]
 
     Dir["#{views}/**/*{#{engines.keys.join(',')}}"].each do |file|
