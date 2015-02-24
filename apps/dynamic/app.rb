@@ -40,7 +40,6 @@ module Dynamic
       '.html'   => :liquid,
       '.xml'    => :liquid
     }
-
     TIMESTAMPED_FILES = Dir["#{views}/_includes/*"] + [__FILE__]
 
     CONFIG = {
