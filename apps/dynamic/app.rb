@@ -37,7 +37,8 @@ module Dynamic
     engines = {
       '.md'     => :markdown,
       '.slim'   => :slim,
-      '.html'   => :liquid
+      '.html'   => :liquid,
+      '.xml'    => :liquid
     }
 
     TIMESTAMPED_FILES = Dir["#{views}/_includes/*"] + [__FILE__]
@@ -62,7 +63,7 @@ module Dynamic
       template_path = file[views.length+1..-1]
       template = file[views.length+1...-ext.length]
       next if template =~ /^_includes/
-
+puts file
       locals = deep_merge_hashes(CONFIG, front_matter(file))
       locals['locals'] = locals # So slim can pass locals to _includes
       locals['template_path'] = template_path
