@@ -46,10 +46,11 @@ module Dynamic
       'site' => YAML.load_file(File.join(root, "_config.#{ENV['RACK_ENV']}.yml"))
     }
 
-    def self.path_for(template, locals)
-      return '/' if template == 'index'
+    def self.path_for(template_name, locals)
+      return '/' if template_name == 'index'
+      return '/new-feed.xml' if template_name == 'new-feed'
 
-      segments = template.split('/')
+      segments = template_name.split('/')
       if segments[0] == 'blog'
         date_path = locals['date'].to_s.gsub('-', '/')
         segments.insert(1, date_path)
@@ -60,13 +61,13 @@ module Dynamic
     Dir["#{views}/**/*{#{engines.keys.join(',')}}"].each do |file|
       ext = File.extname(file)
       template_path = file[views.length+1..-1]
-      template = file[views.length+1...-ext.length]
-      next if template =~ /^_includes/
-puts file
+      template_name = file[views.length+1...-ext.length]
+      next if template_name =~ /^_includes/
+
       locals = deep_merge_hashes(CONFIG, front_matter(file))
       locals['locals'] = locals # So slim can pass locals to _includes
       locals['template_path'] = template_path
-      layout = locals['layout'] || 'layout'
+      layout = locals['layout'] || nil # Default is no layout at all
 
       template_proc = Proc.new do |template|
         content_after_yaml_header(file)
@@ -74,7 +75,7 @@ puts file
 
       renderer = constantize(locals['renderer']) if locals['renderer']
 
-      get path_for(template, locals) do
+      get path_for(template_name, locals) do
         timestamps = (TIMESTAMPED_FILES + [file]).map {|f| File.mtime(f)}
         last_modified timestamps.max
 
@@ -84,7 +85,7 @@ puts file
         # clobbered after the 1st request (!?)
         options = {
           layout_engine: :slim,
-          layout: "_includes/#{layout}".to_sym
+          layout: layout ? "_includes/#{layout}".to_sym : nil
         }
         if engine == :markdown
           # This causes a warning in Slim, but I can't see a way around it
