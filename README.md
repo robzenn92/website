@@ -22,5 +22,4 @@ We decided not to use rack-jekyll as it didn't seem to be able to handle mountin
 
 ## Modify or add content
 
-Please see [The Cucumber Brand](https://github.com/cucumber-ltd/brand/blob/master/Cucumber_Brand_V1.0.pdf) for
-details about fonts and colours.
+Please see [The Cucumber Brand] for details about fonts and colours.
